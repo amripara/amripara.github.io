@@ -6,6 +6,8 @@ var svg2 = d3.select('.info');
 var chart2 = svg2.append('g')
 .attr('transform', 'translate('+[10, 30]+')');
 
+
+
 var toolTip = d3.tip()
     .attr("class", "d3-tip")
     .offset([-10, 0])
@@ -57,7 +59,6 @@ svg.call(toolTip);
 
 
 d3.json("/movies.JSON").then(function(graph) {
-  console.log(graph.nodes);
   movies = graph;
 
   d3.select('datalist').selectAll('option')
@@ -73,7 +74,7 @@ d3.json("/movies.JSON").then(function(graph) {
       return d.index;
     })
     .enter().append("line")
-    .attr("stroke-width", function(d) { return 1; });
+    .attr("stroke-width", function(d) { return 1; } );
 
   	var node = svg.append("g")
       .attr("class", "nodes")
@@ -106,11 +107,10 @@ d3.json("/movies.JSON").then(function(graph) {
 
     var simulation = d3.forceSimulation(graph.nodes)
     .force("link", d3.forceLink().id(function(d) { 
-      //console.log(d);
       return d.name; }))
     .force("charge", d3.forceManyBody().strength(-8))
     .force("center", d3.forceCenter(height/2, width/2))
-    .force("collision", d3.forceCollide(4))
+    .force("collision", d3.forceCollide(5))
     .force("Y", d3.forceY(5))
     .force("X", d3.forceX(5));
 
@@ -120,8 +120,6 @@ d3.json("/movies.JSON").then(function(graph) {
 
   	simulation.force("link")
       .links(graph.links);
-
-    console.log(simulation.nodes);
 
     svg.on("click", function(d) {
         focused = 0;
