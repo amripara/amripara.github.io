@@ -21,24 +21,29 @@ var focused = 0;
 chart1.append('circle')
 .attr('r','7')
 .attr('fill','#1c87c9')
-.attr('transform', 'translate('+[10, 10]+')')
+.attr('transform', 'translate('+[10, 10]+')');
+
 chart1.append('text')
 .attr('class','legend text')
 .text('TV Show')
 .attr('transform', 'translate('+[20, 15]+')');
+
 chart1.append('circle')
 .attr('r','5')
 .attr('fill','#3ae620')
 .attr('transform', 'translate('+[75, 11]+')');
+
 chart1.append('text')
 .attr('class', 'legend text')
 .text('Cast')
 .attr('transform', 'translate('+[85, 15]+')');
+
 chart1.append('rect')
 .attr('width','25')
 .attr('height','3')
 .attr('transform', 'translate('+[115, 10]+')')
 .attr('fill','gray');
+
 chart1.append('text')
 .attr('class', 'legend text')
 .text('Acted in')
@@ -53,16 +58,7 @@ svg.call(toolTip);
 
 d3.json("/movies.JSON").then(function(graph) {
   console.log(graph.nodes);
-	//console.log(graph);
   movies = graph;
-  /*
-  var str = '';
-  for (var i=0; i < graph.nodes.length; i++) {
-    str += '<option value="'+graph.nodes[i].name+'">';
-  }
-  var my_list = document.getElementById("movie-actors");
-  my_list.innerHTML = str;
-  */
 
   d3.select('datalist').selectAll('option')
   .data(graph.nodes)
@@ -193,7 +189,6 @@ function focus(d,i) {
         }
       }
     } else {
-        //console.log(d.cast);
         if (d.cast != null) {
           highlightNodes = d.cast.split(', ');
         }
@@ -203,8 +198,6 @@ function focus(d,i) {
           }
         }
     }
-    //console.log(highlightNodes);
-    //console.log(highlightLinks);
     focused = 1;
     updateGraph(d);
     updateInfoCard(d);
@@ -244,9 +237,8 @@ function onChoiceChanged() {
 
 function updateInfoCard(d) {
   d3.selectAll('.infoCard').remove();
-
+  var textHeight = 15;
   if (d != null) {
-    //console.log(d.name);
     chart2
     .append('text')
     .attr('class','infoCard title')
@@ -255,7 +247,7 @@ function updateInfoCard(d) {
     chart2
     .append('line')
     .attr('class','infoCard underline')
-    .attr('transform', 'translate('+[0, 15]+')')
+    .attr('transform', 'translate('+[0, textHeight]+')')
     .attr('style', 'stroke:gray;stroke-width:1')
     .attr('x1', '0')
     .attr('x2', '280')
@@ -266,76 +258,112 @@ function updateInfoCard(d) {
       chart2
       .append('text')
       .attr('class','infoCard subHeading')
-      .attr('transform', 'translate('+[0, 40]+')')
-      .text('Tv Shows:');
+      .text('Tv Shows:')
+      .attr('transform', function (d) {
+        textHeight+= this.getBBox().height + 5;
+        return 'translate(' + [0, textHeight] + ')';
+      });
 
       chart2
       .append('text')
       .attr('class','infoCard p')
-      .attr('transform', 'translate('+[0, 60]+')')
-      .text(d.tvshows);
+      .text(d.tvshows)
+      .attr('transform', function (d) {
+        textHeight+= this.getBBox().height + 5;
+        return 'translate(' + [0, textHeight] + ')';
+      });
     } else {
       chart2
       .append('text')
       .attr('class','infoCard subHeading')
-      .attr('transform', 'translate('+[0, 40]+')')
-      .text('Release Date:');
+      .text('Release Date:')
+      .attr('transform', function (d) {
+        textHeight+= this.getBBox().height + 5;
+        return 'translate(' + [0, textHeight] + ')';
+      });
 
       chart2
       .append('text')
       .attr('class','infoCard p')
-      .attr('transform', 'translate('+[0, 60]+')')
-      .text(d.release_date);
+      .text(d.release_date)
+      .attr('transform', function (d) {
+        textHeight+= this.getBBox().height + 5;
+        return 'translate(' + [0, textHeight] + ')';
+      });
 
       chart2
       .append('text')
       .attr('class','infoCard subHeading')
-      .attr('transform', 'translate('+[0, 80]+')')
-      .text('Rating:');
+      .text('Rating:')
+      .attr('transform', function (d) {
+        textHeight+= this.getBBox().height + 5;
+        return 'translate(' + [0, textHeight] + ')';
+      });
 
       chart2
       .append('text')
       .attr('class','infoCard p')
-      .attr('transform', 'translate('+[0, 100]+')')
-      .text(d.rating);
+      .text(d.rating)
+      .attr('transform', function (d) {
+        textHeight+= this.getBBox().height + 5;
+        return 'translate(' + [0, textHeight] + ')';
+      });
 
       chart2
       .append('text')
       .attr('class','infoCard subHeading')
-      .attr('transform', 'translate('+[0, 120]+')')
-      .text('Genre:');
+      .text('Genre:')
+      .attr('transform', function (d) {
+        textHeight+= this.getBBox().height + 5;
+        return 'translate(' + [0, textHeight] + ')';
+      });
 
       chart2
       .append('text')
       .attr('class','infoCard p')
-      .attr('transform', 'translate('+[0, 140]+')')
-      .text(d.genre);
+      .text(d.genre)
+      .attr('transform', function (d) {
+        textHeight+= this.getBBox().height + 5;
+        return 'translate(' + [0, textHeight] + ')';
+      });
 
       chart2
       .append('text')
       .attr('class','infoCard subHeading')
-      .attr('transform', 'translate('+[0, 160]+')')
-      .text('Cast:');
+      .text('Cast:')
+      .attr('transform', function (d) {
+        textHeight+= this.getBBox().height + 5;
+        return 'translate(' + [0, textHeight] + ')';
+      });
 
       chart2
       .append('text')
       .attr('class','infoCard p')
-      .attr('transform', 'translate('+[0, 180]+')')
       .text(d.cast)
-      .call(wrap,600);
+      .call(wrap,600)
+      .attr('transform', function (d) {
+        textHeight+= this.getBBox().height + 5;
+        return 'translate(' + [0, textHeight - this.getBBox().height + 17] + ')';
+      });
 
       chart2
       .append('text')
       .attr('class','infoCard subHeading')
-      .attr('transform', 'translate('+[0, 350]+')')
-      .text('Plot:');
+      .text('Plot:')
+      .attr('transform', function (d) {
+        textHeight+= this.getBBox().height + 5;
+        return 'translate(' + [0, textHeight] + ')';
+      });
 
       chart2
       .append('text')
       .attr('class','infoCard p')
-      .attr('transform', 'translate('+[0, 370]+')')
       .text(d.description)
-      .call(wrap,600);
+      .call(wrap,600)
+      .attr('transform', function (d) {
+        textHeight+= this.getBBox().height + 5;
+        return 'translate(' + [0, textHeight - this.getBBox().height + 17] + ')';
+      });
     }
   }
 }
@@ -348,7 +376,7 @@ function wrap(text, width) {
             word,
             line = [],
             lineNumber = 0,
-            lineHeight = 1, // ems
+            lineHeight = 1.25, // ems
             x = 0,
             y = 0,
             dy = 0, //parseFloat(text.attr("dy")),
