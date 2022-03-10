@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 7 - Movies</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="main">
+    	<h1 align="center">U.S.-based TV shows on Netflix released in 2020 along with their cast</h1>
+    	<div align="center">
+    	<svg align="center" class="legend" width="190" height="30">
+    	</svg>
+    	</div>
+    	<div align="center" style="padding-bottom: 10px;"> 
+	    	<input list="names" id="moviechoice" name="moviechoice" onchange="onChoiceChanged()" />
+        <datalist id="names">
+        </datalist>
+    	</div>
+    	<div align="center">
+    		<svg class="force" width="600" height="600">
+        	</svg>
+        	<svg class="info" width="700" height="500">
+        	</svg>
+    	</div>
+    </div>
+</body>
+<script src="//d3js.org/d3.v5.min.js"></script>
+<script src="./d3-tip.js"></script>
+<script src="./main.js"></script>
+</html>
