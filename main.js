@@ -2,10 +2,10 @@
 var svg1 = d3.select('.legend');
 var chart1 = svg1.append('g')
 .attr('transform', 'translate('+[0, 0]+')');
+
 var svg2 = d3.select('.info');
 var chart2 = svg2.append('g')
 .attr('transform', 'translate('+[10, 30]+')');
-
 
 
 var toolTip = d3.tip()
@@ -20,6 +20,8 @@ var highlightNodes = [];
 var highlightLinks = [];
 var focused = 0;
 
+
+//Legend creation
 chart1.append('circle')
 .attr('r','7')
 .attr('fill','#1c87c9')
@@ -57,7 +59,7 @@ var svg = d3.select(".force"),
 
 svg.call(toolTip);
 
-
+//Reads JSON and initializes force graph
 d3.json("/movies.JSON").then(function(graph) {
   movies = graph;
 
@@ -152,6 +154,7 @@ d3.json("/movies.JSON").then(function(graph) {
   }
 });
 
+//Updates graph with nodes from JSON
 function updateGraph(d) {
 
   var data = [];
@@ -175,6 +178,7 @@ function updateGraph(d) {
     .attr("opacity", "10%");
 }
 
+//Highlights clicked node and neighbouring nodes by reducing opacity of others
 function focus(d,i) {
   if (focused == 0) {
     highlightNodes = [];
@@ -202,6 +206,7 @@ function focus(d,i) {
   }
 }
 
+//Resets node opacity to highlight everything
 function unfocus() {
   focused = 0;
   d3.select('.force').select('.nodes').selectAll('circle')
@@ -218,6 +223,7 @@ function unfocus() {
   toolTip.hide();
 }
 
+//Looks at selected option in list and filters graph
 function onChoiceChanged() {
         var select = d3.select('#moviechoice').node().value;
         if (select == ""){
@@ -232,7 +238,7 @@ function onChoiceChanged() {
           }
         }
     }
-
+//Populates info card with relevant information
 function updateInfoCard(d) {
   d3.selectAll('.infoCard').remove();
   var textHeight = 15;
